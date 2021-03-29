@@ -6,8 +6,9 @@
     "configurations": [
         {
             "env": {
-                "HTTP_ADDR" : "localhost:8080",
-                "PG_URL" : "localhost:5432",
+                "APP_PORT" : "8080",
+                "PG_HOST" : "localhost",
+                "PG_PORT" : "5432",
                 "LOG_LEVEL" : "debug"
             },
             "name": "Launch Package",

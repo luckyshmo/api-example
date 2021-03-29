@@ -8,12 +8,13 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
-// Config is a config :)
+// Config. Should be filled from Env. Use launch.json(vscode) on local machine
 type Config struct {
 	LogLevel         string `envconfig:"LOG_LEVEL"`
-	PgURL            string `envconfig:"PG_URL"`
+	PgHOST           string `envconfig:"PG_HOST"`
+	PgPORT           string `envconfig:"PG_PORT"`
 	PgMigrationsPath string `envconfig:"PG_MIGRATIONS_PATH"`
-	HTTPAddr         string `envconfig:"HTTP_ADDR"`
+	AppPort          string `envconfig:"APP_PORT"`
 }
 
 var (
