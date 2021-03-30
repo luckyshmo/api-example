@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
@@ -21,6 +19,5 @@ func sendErrorResponse(c *gin.Context, statusCode int, message string) {
 }
 
 func sendStatusResponse(c *gin.Context, statusCode int, i interface{}) { //? Is using interface a good idea?
-	logrus.Print(fmt.Sprintf("TEST RESP PRINT %s", i)) //TODO check lvls
 	c.JSON(statusCode, i)
 }
