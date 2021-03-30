@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	_ "github.com/lib/pq"
 
@@ -38,8 +39,12 @@ func run() error {
 	} else {
 		logrus.SetLevel(lvl)
 	}
-	logrus.SetFormatter(new(logrus.JSONFormatter)) //todo could be configured via Env
-	logrus.SetReportCaller(true)                   //todo could be configured via Env
+	var JSONF = new(logrus.JSONFormatter)
+	JSONF.TimestampFormat = time.RFC3339
+	logrus.SetFormatter(JSONF)   //todo could be configured via Env
+	logrus.SetReportCaller(true) //todo could be configured via Env
+
+	logrus.Print("Run Started")
 
 	//Init DB
 	db, err := pg.NewPostgresDB(pg.Config{
