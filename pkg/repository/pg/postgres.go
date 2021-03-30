@@ -1,9 +1,10 @@
-package repository
+package pg
 
 import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
+	"github.com/luckyshmo/api-example/pkg/repository/pg/migrations"
 )
 
 const (
@@ -27,6 +28,11 @@ func NewPostgresDB(cfg Config) (*sqlx.DB, error) {
 	}
 
 	err = db.Ping()
+	if err != nil {
+		return nil, err
+	}
+
+	err = migrations.RunPgMigrations() //TODO config? rename package to pgMigration?
 	if err != nil {
 		return nil, err
 	}

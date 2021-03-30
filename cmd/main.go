@@ -10,6 +10,7 @@ import (
 	"github.com/luckyshmo/api-example/config"
 	"github.com/luckyshmo/api-example/pkg/handler"
 	"github.com/luckyshmo/api-example/pkg/repository"
+	"github.com/luckyshmo/api-example/pkg/repository/pg"
 	"github.com/luckyshmo/api-example/pkg/service"
 	"github.com/luckyshmo/api-example/server"
 
@@ -41,7 +42,7 @@ func run() error {
 	logrus.SetReportCaller(true)                   //todo could be configured via Env
 
 	//Init DB
-	db, err := repository.NewPostgresDB(repository.Config{
+	db, err := pg.NewPostgresDB(pg.Config{
 		Host:     cfg.PgHOST,
 		Port:     cfg.PgPORT,
 		Username: "postgres", //TODO config
@@ -66,14 +67,14 @@ func run() error {
 		}
 	}()
 
-	logrus.Print("TodoApp Started")
+	logrus.Print("App Started")
 
 	quit := make(chan os.Signal, 1)
 	//if app get SIGTERM it will exit
-	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT) //TODO check k8s
+	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
 	<-quit
 
-	logrus.Print("TodoApp Shutting Down")
+	logrus.Print("App Shutting Down")
 
 	return nil
 }
