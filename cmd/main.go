@@ -29,7 +29,7 @@ func main() {
 //main func
 func run() error {
 	// config
-	cfg := config.Get()
+	cfg := config.Get() //? errors before logrus init
 
 	// logger configuration
 	lvl, err := logrus.ParseLevel(cfg.LogLevel)
@@ -47,7 +47,7 @@ func run() error {
 	logrus.Print("Run Started")
 
 	//Init DB
-	db, err := pg.NewPostgresDB(pg.Config{
+	db, err := pg.NewPostgresDB(pg.Config{ //? you can get db by config
 		Host:     cfg.PgHOST,
 		Port:     cfg.PgPORT,
 		Username: "postgres", //TODO config
@@ -60,6 +60,7 @@ func run() error {
 	}
 
 	//Init main components
+	//Good Clean arch and dependency injection example
 	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)

@@ -1,13 +1,14 @@
 package repository
 
 import (
+	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 	"github.com/luckyshmo/api-example/models"
 	"github.com/luckyshmo/api-example/pkg/repository/pg"
 )
 
 type Authorization interface {
-	CreateUser(user models.User) (int, error)
+	CreateUser(user models.User) (uuid.UUID, error)
 	GetUser(username, password string) (models.User, error)
 }
 

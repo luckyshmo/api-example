@@ -1,14 +1,15 @@
 package service
 
 import (
+	"github.com/google/uuid"
 	"github.com/luckyshmo/api-example/models"
 	"github.com/luckyshmo/api-example/pkg/repository"
 )
 
 type Authorization interface {
-	CreateUser(user models.User) (int, error)
+	CreateUser(user models.User) (uuid.UUID, error)
 	GenerateToken(username, password string) (string, error)
-	ParseToken(token string) (int, error)
+	ParseToken(token string) (uuid.UUID, error)
 }
 
 type Service struct {
