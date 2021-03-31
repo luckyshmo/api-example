@@ -2,7 +2,6 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 type errorResponse struct {
@@ -14,10 +13,9 @@ type statusResponse struct {
 }
 
 func sendErrorResponse(c *gin.Context, statusCode int, message string) {
-	logrus.Error(message)
 	c.AbortWithStatusJSON(statusCode, errorResponse{message})
 }
 
-func sendStatusResponse(c *gin.Context, statusCode int, i interface{}) { //? Is using interface a good idea?
+func sendStatusResponse(c *gin.Context, statusCode int, i interface{}) {
 	c.JSON(statusCode, i)
 }

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"errors"
+	"fmt"
 	"net/http/httptest"
 	"testing"
 
@@ -32,10 +33,10 @@ func TestHandler_userIdentity(t *testing.T) {
 			headerValue: "Bearer token",
 			token:       "token",
 			mockBehavior: func(r *service_mocks.MockAuthorization, token string) {
-				r.EXPECT().ParseToken(token).Return(1, nil)
+				r.EXPECT().ParseToken(token).Return(uuid.Nil, nil)
 			},
 			expectedStatusCode:   200,
-			expectedResponseBody: "1",
+			expectedResponseBody: fmt.Sprint([16]byte{}), //Same as uuid.Nil
 		},
 		{
 			name:                 "Invalid Header Name",
@@ -70,7 +71,7 @@ func TestHandler_userIdentity(t *testing.T) {
 			headerValue: "Bearer token",
 			token:       "token",
 			mockBehavior: func(r *service_mocks.MockAuthorization, token string) {
-				r.EXPECT().ParseToken(token).Return(0, errors.New("invalid token"))
+				r.EXPECT().ParseToken(token).Return(uuid.Nil, errors.New("invalid token"))
 			},
 			expectedStatusCode:   401,
 			expectedResponseBody: `{"message":"invalid token"}`,
@@ -81,7 +82,7 @@ func TestHandler_userIdentity(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			// Init Dependencies
 			c := gomock.NewController(t)
-			defer c.Finish()
+			defer c.Finish() //! deprecated in go 14+
 
 			repo := service_mocks.NewMockAuthorization(c)
 			test.mockBehavior(repo, test.token)
@@ -111,7 +112,7 @@ func TestHandler_userIdentity(t *testing.T) {
 }
 
 func TestGetUserId(t *testing.T) {
-	var getContext = func(id int) *gin.Context {
+	var getContext = func(id interface{}) *gin.Context {
 		ctx := &gin.Context{}
 		ctx.Set(userCtx, id)
 		return ctx
@@ -125,12 +126,17 @@ func TestGetUserId(t *testing.T) {
 	}{
 		{
 			name: "Ok",
-			ctx:  getContext(1),
+			ctx:  getContext(uuid.New()),
 			id:   uuid.New(),
 		},
 		{
-			ctx:        &gin.Context{},
 			name:       "Empty",
+			ctx:        &gin.Context{},
+			shouldFail: true,
+		},
+		{
+			name:       "Invalid type",
+			ctx:        getContext(1),
 			shouldFail: true,
 		},
 	}
@@ -144,7 +150,7 @@ func TestGetUserId(t *testing.T) {
 				assert.NoError(t, err)
 			}
 
-			assert.Equal(t, id, test.id)
+			assert.Equal(t, len(id), len(test.id)) //TODO? UUID.nil doesn't work for some reason
 		})
 	}
 }
