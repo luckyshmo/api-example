@@ -26,12 +26,12 @@ type tokenClaims struct {
 	UserId uuid.UUID `json:"user_id"`
 }
 
-func NewAuthService(repo repository.Authorization) *AuthService {
-	return &AuthService{repo: repo}
-}
-
 type AuthService struct {
 	repo repository.Authorization
+}
+
+func NewAuthService(repo repository.Authorization) *AuthService {
+	return &AuthService{repo: repo}
 }
 
 func (s *AuthService) CreateUser(user models.User) (uuid.UUID, error) {
@@ -65,7 +65,7 @@ func (s *AuthService) ParseToken(accessToken string) (uuid.UUID, error) {
 	//using same structure for parse claims from token
 	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
 		//func witch will receive the parsed token and should return the key for validating
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok { //cast syntax
 			return nil, errors.New("invalid signing method")
 		}
 
@@ -76,7 +76,7 @@ func (s *AuthService) ParseToken(accessToken string) (uuid.UUID, error) {
 		return uuid.Nil, err
 	}
 
-	claims, ok := token.Claims.(*tokenClaims) //! MAGIC? WTF?
+	claims, ok := token.Claims.(*tokenClaims) //cast syntax
 	if !ok {
 		return uuid.Nil, errors.New("token claims are not of type *tokenClaims")
 	}

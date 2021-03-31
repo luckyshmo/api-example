@@ -12,12 +12,19 @@ type Authorization interface {
 	ParseToken(token string) (uuid.UUID, error)
 }
 
+type User interface {
+	GetById(userId uuid.UUID) (models.User, error)
+	GetAll() ([]models.User, error)
+}
+
 type Service struct {
 	Authorization
+	User
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		User:          NewUserService(repos.User),
 	}
 }
