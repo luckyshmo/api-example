@@ -6,6 +6,7 @@ import (
 	"github.com/luckyshmo/api-example/pkg/repository"
 )
 
+//go:generate mockgen -source=/home/mihail/go/src/rest-api/pkg/service/service.go -destination=mocks/mock.go
 type Authorization interface {
 	CreateUser(user models.User) (uuid.UUID, error)
 	GenerateToken(username, password string) (string, error)
