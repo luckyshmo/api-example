@@ -27,5 +27,14 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		auth.POST("/sign-in", h.signIn)
 	}
 
+	api := router.Group("/api", h.userIdentity) //JWT Auth
+	{
+		users := api.Group("/user")
+		{
+			users.GET("/", h.getUserList)
+			users.GET("/:id", h.getUser)
+		}
+	}
+
 	return router
 }

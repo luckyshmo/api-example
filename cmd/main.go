@@ -81,6 +81,9 @@ func run() error {
 	<-quit
 
 	logrus.Print("App Shutting Down")
+	if err := db.Close(); err != nil {
+		return err
+	}
 
 	return nil
 }
