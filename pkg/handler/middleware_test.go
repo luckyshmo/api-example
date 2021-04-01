@@ -126,8 +126,8 @@ func TestGetUserId(t *testing.T) {
 	}{
 		{
 			name: "Ok",
-			ctx:  getContext(uuid.New()),
-			id:   uuid.New(),
+			ctx:  getContext(uuid.Nil),
+			id:   uuid.Nil,
 		},
 		{
 			name:       "Empty",
@@ -150,7 +150,7 @@ func TestGetUserId(t *testing.T) {
 				assert.NoError(t, err)
 			}
 
-			assert.Equal(t, len(id), len(test.id)) //TODO? UUID.nil doesn't work for some reason
+			assert.Equal(t, id, test.id)
 		})
 	}
 }
