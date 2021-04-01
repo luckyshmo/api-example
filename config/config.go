@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+	"reflect"
 	"sync"
 
 	"github.com/sirupsen/logrus"
@@ -10,11 +12,16 @@ import (
 
 // Config. Should be filled from Env. Use launch.json(vscode) on local machine
 type Config struct {
-	LogLevel         string `envconfig:"LOG_LEVEL"`
 	PgHOST           string `envconfig:"PG_HOST"`
 	PgPORT           string `envconfig:"PG_PORT"`
+	PgPAS            string `envconfig:"PG_PAS"`
+	PgSSLMode        string `envconfig:"PG_SSLMODE"`
 	PgMigrationsPath string `envconfig:"PG_MIGRATIONS_PATH"`
-	AppPort          string `envconfig:"APP_PORT"`
+	PgUserName       string `envconfig:"PG_USERNAME"`
+	PgDBName         string `envconfig:"PG_DBNAME"`
+
+	AppPort  string `envconfig:"APP_PORT"`
+	LogLevel string `envconfig:"LOG_LEVEL"`
 }
 
 var (
@@ -29,6 +36,18 @@ func Get() *Config {
 		if err != nil {
 			logrus.Fatal(err)
 		}
+		validate(config)
 	})
 	return &config
+}
+
+func validate(cfg Config) {
+	refConf := reflect.ValueOf(cfg)
+	typeOfRefConf := refConf.Type()
+
+	for i := 0; i < refConf.NumField(); i++ {
+		if fmt.Sprint(refConf.Field(i).Interface()) == "" {
+			logrus.Warn(fmt.Sprintf("Config: %s value is empty!", typeOfRefConf.Field(i).Name))
+		}
+	}
 }

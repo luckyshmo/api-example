@@ -6,11 +6,17 @@
     "configurations": [
         {
             "env": {
-                "APP_PORT" : "8080",
+                
                 "PG_HOST" : "localhost",
                 "PG_PORT" : "5432",
+                "PG_PAS" : "example",
+                "PG_SSLMODE" : "disable",
+                "PG_MIGRATIONS_PATH" : "file://../pkg/repository/pg/migrations",
+                "PG_USERNAME" : "postgres",
+                "PG_DBNAME" : "postgres",
                 "LOG_LEVEL" : "debug",
-                "PG_MIGRATIONS_PATH" : "file://../pkg/repository/pg/migrations"
+                "APP_PORT" : "8080",
+    
             },
             "name": "Launch Package",
             "type": "go",

@@ -50,10 +50,10 @@ func run() error {
 	db, err := pg.NewPostgresDB(pg.Config{ //? you can get db by config
 		Host:     cfg.PgHOST,
 		Port:     cfg.PgPORT,
-		Username: "postgres", //TODO config
-		DBName:   "postgres",
-		SSLMode:  "disable",
-		Password: "example",
+		Username: cfg.PgUserName,
+		DBName:   cfg.PgDBName,
+		SSLMode:  cfg.PgSSLMode,
+		Password: cfg.PgPAS,
 	})
 	if err != nil {
 		return errors.Wrap(err, "failed to initialize db")

@@ -14,8 +14,8 @@ import (
 )
 
 // runPgMigrations runs Postgres migrations
-func RunPgMigrations() error { //TODO init interface??
-	cfg := config.Get() //TODO check, should return same config.
+func RunPgMigrations() error { //TODO init interface or makefile?
+	cfg := config.Get()
 	if cfg.PgMigrationsPath == "" {
 		logrus.Warn("No migration path provided")
 		return nil
@@ -23,10 +23,13 @@ func RunPgMigrations() error { //TODO init interface??
 	if cfg.PgHOST == "" || cfg.PgPORT == "" {
 		return errors.New("No cfg.PgURL provided")
 	}
+
+	connectionString := "postgres://" + cfg.PgUserName + ":" + cfg.PgPAS + "@" + cfg.PgHOST + "/" + cfg.PgDBName + "?sslmode=" + cfg.PgSSLMode
+	logrus.Info(connectionString)
+
 	m, err := migrate.New(
 		cfg.PgMigrationsPath,
-		// cfg.PgHOST+":"+cfg.PgPORT,
-		"postgres://postgres:example@localhost/postgres?sslmode=disable", //TODO fuck
+		connectionString, //TODO cab be run from Makefile
 	)
 	if err != nil {
 		return err
