@@ -41,7 +41,7 @@ func Get() *Config {
 	return &config
 }
 
-func validate(cfg Config) {
+func validate(cfg Config) { //TODO? logging isn't configure at this moment... probably return message or error?
 	refConf := reflect.ValueOf(cfg)
 	typeOfRefConf := refConf.Type()
 

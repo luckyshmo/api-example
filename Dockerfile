@@ -1,10 +1,6 @@
-FROM golang:1.16.2-buster
+FROM golang:1.16.2-alpine as builder
 
-# install psql
-RUN apt-get update
-RUN apt-get -y install postgresql-client
-
-RUN go version
+# RUN go version
 ENV GOPATH=/
 
 COPY ./go.mod ./go.sum ./
@@ -18,4 +14,16 @@ RUN chmod +x wait-for-postgres.sh
 # build go app
 RUN go build -o api-example ./cmd/main.go
 
-CMD ["./api-example"]
+#Build destination container
+FROM alpine:latest
+
+# install psql
+RUN apk --update add postgresql-client
+
+# copy bin and pg-wait script
+COPY --from=builder /go/api-example /go/wait-for-postgres.sh ./
+
+# copy PG migrations
+COPY --from=builder /go/pkg/repository/pg/migrations/*.sql ./migrations/
+
+EXPOSE 8080

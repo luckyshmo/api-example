@@ -15,7 +15,7 @@ services:
       - PG_HOST=db
       - PG_PORT=5432
       - LOG_LEVEL=debug
-      - PG_MIGRATIONS_PATH=file://pkg/repository/pg/migrations
+      - PG_MIGRATIONS_PATH=file://./migrations
       - PG_PAS=example
       - PG_SSLMODE=disable
       - PG_USERNAME=postgres
