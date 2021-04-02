@@ -82,7 +82,6 @@ func TestHandler_userIdentity(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			// Init Dependencies
 			c := gomock.NewController(t)
-			defer c.Finish() //! deprecated in go 14+
 
 			repo := service_mocks.NewMockAuthorization(c)
 			test.mockBehavior(repo, test.token)
