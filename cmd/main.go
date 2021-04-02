@@ -19,6 +19,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// @title Example API
+// @version 1.0
+// @description API Server Example for building go microservices
+
+// @host localhost:8080
+// @BasePath /
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	//Mat Ryer advice to handle all app errors
 	if err := run(); err != nil {
