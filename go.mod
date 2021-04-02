@@ -23,6 +23,7 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
+	github.com/zhashkevych/go-sqlxmock v1.5.1
 	golang.org/x/net v0.0.0-20210331212208-0fccb6fa2b5c // indirect
 	golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54 // indirect
 	golang.org/x/text v0.3.6 // indirect

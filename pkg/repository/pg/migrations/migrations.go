@@ -14,7 +14,7 @@ import (
 )
 
 // runPgMigrations runs Postgres migrations
-func RunPgMigrations() error { //TODO init interface or makefile?
+func RunPgMigrations() error { //? can be run from Makefile
 	cfg := config.Get()
 	if cfg.PgMigrationsPath == "" {
 		logrus.Warn("No migration path provided")
@@ -29,7 +29,7 @@ func RunPgMigrations() error { //TODO init interface or makefile?
 
 	m, err := migrate.New(
 		cfg.PgMigrationsPath,
-		connectionString, //TODO cab be run from Makefile
+		connectionString,
 	)
 	if err != nil {
 		return err
