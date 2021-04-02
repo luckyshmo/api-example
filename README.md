@@ -7,3 +7,5 @@ Time default format - [RFC3339](https://en.wikipedia.org/wiki/ISO_8601#RFCs)
 [UUID v4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
 
 [GIN](https://github.com/gin-gonic/gin) framework for REST endpoints
+
+[Documentation](https://github.com/swaggo/swag)
