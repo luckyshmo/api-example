@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -80,7 +81,7 @@ func run() error {
 	srv := new(server.Server) //TODO? server.Server should be *serviceName*.server
 	go func() {
 		if err := srv.Run(cfg.AppPort, handlers.InitRoutes()); err != nil {
-			logrus.Error("error occured while running http server: %s", err.Error())
+			logrus.Error(fmt.Sprintf("error occured while running http server: %s", err.Error()))
 		}
 	}()
 
