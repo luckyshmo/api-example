@@ -15,6 +15,7 @@
                 "PG_USERNAME" : "postgres",
                 "PG_DBNAME" : "postgres",
                 "LOG_LEVEL" : "debug",
+                "ENV" : "debug",
                 "APP_PORT" : "8080",
     
             },

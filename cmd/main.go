@@ -51,12 +51,11 @@ func run() error {
 	} else {
 		logrus.SetLevel(lvl)
 	}
-	var JSONF = new(logrus.JSONFormatter)
-	JSONF.TimestampFormat = time.RFC3339
-	logrus.SetFormatter(JSONF)   //todo could be configured via Env
-	logrus.SetReportCaller(true) //todo could be configured via Env
-
-	logrus.Print("Run Started")
+	if cfg.Environment == "production" {
+		var JSONF = new(logrus.JSONFormatter)
+		JSONF.TimestampFormat = time.RFC3339
+		logrus.SetFormatter(JSONF)
+	}
 
 	//Init DB
 	db, err := pg.NewPostgresDB(pg.Config{ //? you can get db by config

@@ -20,6 +20,7 @@ services:
       - PG_SSLMODE=disable
       - PG_USERNAME=postgres
       - PG_DBNAME=postgres
+      - ENV=production
   db:
     image: postgres:latest
     restart: always
