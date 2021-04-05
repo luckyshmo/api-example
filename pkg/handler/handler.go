@@ -6,6 +6,7 @@ import (
 
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	ginprometheus "github.com/zsais/go-gin-prometheus"
 
 	_ "github.com/luckyshmo/api-example/docs"
 )
@@ -23,6 +24,9 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	//Open-Api endpoints documentation using GIN swagger
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	p := ginprometheus.NewPrometheus("gin")
+	p.Use(router)
 
 	auth := router.Group("/auth")
 	{
