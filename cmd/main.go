@@ -32,6 +32,8 @@ import (
 // @name Authorization
 
 func main() {
+	//I WILL BALANCING!!!
+
 	//Mat Ryer advice to handle all app errors
 	if err := run(); err != nil {
 		logrus.Fatal(err)
