@@ -28,15 +28,20 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	p := ginprometheus.NewPrometheus("gin")
 	p.Use(router)
 
-	auth := router.Group("/auth")
+	api := router.Group("/api", h.limit) //JWT Auth
 	{
-		auth.POST("/sign-up", h.signUp)
-		auth.POST("/sign-in", h.signIn)
-	}
+		data := router.Group("/data")
+		{
+			data.POST("/", h.receiveData)
+		}
 
-	api := router.Group("/api", h.userIdentity) //JWT Auth
-	{
-		users := api.Group("/user")
+		auth := router.Group("/auth")
+		{
+			auth.POST("/sign-up", h.signUp)
+			auth.POST("/sign-in", h.signIn)
+		}
+
+		users := api.Group("/user", h.userIdentity)
 		{
 			users.GET("/", h.getUserList)
 			users.GET("/:id", h.getUser)

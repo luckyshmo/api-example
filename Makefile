@@ -2,7 +2,7 @@ build:
 	docker-compose build api-example
 
 run:
-	docker-compose up api-example
+	docker-compose up -d --scale api-example=3
 
 stop:
 	docker-compose stop

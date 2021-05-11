@@ -17,14 +17,20 @@ type User interface {
 	GetAll() ([]models.User, error)
 }
 
+type Parser interface {
+	ParseData(data []models.Data) error
+}
+
 type Service struct {
 	Authorization
 	User
+	Parser
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
 		User:          NewUserService(repos.User),
+		Parser:        NewDataParserService(),
 	}
 }

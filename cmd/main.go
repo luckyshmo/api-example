@@ -32,8 +32,6 @@ import (
 // @name Authorization
 
 func main() {
-	//I WILL BALANCING!!!
-
 	//Mat Ryer advice to handle all app errors
 	if err := run(); err != nil {
 		logrus.Fatal(err)
@@ -58,6 +56,8 @@ func run() error {
 		JSONF.TimestampFormat = time.RFC3339
 		logrus.SetFormatter(JSONF)
 	}
+
+	fmt.Print(cfg.AppPort)
 
 	//Init DB
 	db, err := pg.NewPostgresDB(pg.Config{ //? you can get db by config
