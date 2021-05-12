@@ -17,6 +17,7 @@
                 "LOG_LEVEL" : "debug",
                 "ENV" : "debug",
                 "APP_PORT" : "8080",
+                "R_COUNT" : "1"
     
             },
             "name": "Launch Package",

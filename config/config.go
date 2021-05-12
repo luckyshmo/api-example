@@ -24,6 +24,8 @@ type Config struct {
 
 	AppPort  string `envconfig:"APP_PORT"`
 	LogLevel string `envconfig:"LOG_LEVEL"`
+
+	MaxRequestCount string `envconfig:"R_COUNT"`
 }
 
 var (

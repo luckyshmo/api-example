@@ -20,6 +20,7 @@ services:
       - PG_USERNAME=postgres
       - PG_DBNAME=postgres
       - ENV=production
+      - R_COUNT=1
   db:
     image: postgres:latest
     restart: always
