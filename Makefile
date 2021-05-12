@@ -2,7 +2,7 @@ build:
 	docker-compose build api-example
 
 run:
-	docker-compose up -d --scale api-example=3
+	docker-compose up -d --scale api-example=4
 
 stop:
 	docker-compose stop
@@ -14,6 +14,6 @@ test:
 # migrate: #alternative way to migrate DB
 # 	migrate -path ./schema -database 'postgres://postgres:example@localhost/postgres?sslmode=disable' up #!wrong!!
 
-# swag:
-# 	swag init -g cmd/main.go
+swag:
+	swag init -g cmd/main.go
 

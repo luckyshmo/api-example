@@ -15,6 +15,19 @@ definitions:
     - password
     - username
     type: object
+  models.Data:
+    properties:
+      amount:
+        type: integer
+      method:
+        type: integer
+      object:
+        type: integer
+      price:
+        type: integer
+      quantity:
+        type: integer
+    type: object
   models.User:
     properties:
       name:
@@ -147,6 +160,32 @@ paths:
       summary: SignUp
       tags:
       - auth
+  /data:
+    post:
+      consumes:
+      - application/json
+      description: parseData
+      parameters:
+      - description: data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Data'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: parseData
+      tags:
+      - data parse
 securityDefinitions:
   ApiKeyAuth:
     in: header

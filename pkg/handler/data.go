@@ -12,7 +12,7 @@ import (
 // @Description parseData
 // @Accept  json
 // @Produce  json
-// @Param input body models.Data
+// @Param input body models.Data true "data"
 // @Success 200 {integer} integer 1
 // @Failure default {object} errorResponse
 // @Router /data [post]
