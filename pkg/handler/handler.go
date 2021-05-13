@@ -30,12 +30,12 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	api := router.Group("/api", h.limit) //JWT Auth
 	{
-		data := router.Group("/data")
+		data := api.Group("/data")
 		{
 			data.POST("/", h.receiveData)
 		}
 
-		auth := router.Group("/auth")
+		auth := api.Group("/auth")
 		{
 			auth.POST("/sign-up", h.signUp)
 			auth.POST("/sign-in", h.signIn)
