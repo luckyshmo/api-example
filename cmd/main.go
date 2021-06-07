@@ -72,9 +72,9 @@ func run() error {
 
 	//Init main components
 	//Good Clean arch and dependency injection example
-	repos := repository.NewRepository(db)
-	services := service.NewService(repos)
-	handlers := handler.NewHandler(services)
+	repo := repository.NewRepository(db)
+	appService := service.NewAppService(repo)
+	handlers := handler.NewHandler(appService)
 
 	//starting server
 	srv := new(server.Server) //TODO? server.Server should be *serviceName*.server
