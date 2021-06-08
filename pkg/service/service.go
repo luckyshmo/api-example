@@ -22,7 +22,7 @@ type Service struct {
 	User
 }
 
-func NewService(repos *repository.Repository) *Service {
+func NewAppService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
 		User:          NewUserService(repos.User),
